@@ -11,7 +11,7 @@ def read(fname):
 
 
 NAME = 'datatypes_timex_expression'
-VERSION = '1.0.0.a0'
+VERSION = "1.0.3"
 REQUIRES = []
 
 setup(
@@ -30,7 +30,7 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 5 - Production/Stable',
         'Topic :: Scientific/Engineering :: Artificial Intelligence',
     ]
 )
