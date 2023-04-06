@@ -139,23 +139,14 @@ class ItalianDateExtractorConfiguration(DateExtractorConfiguration):
         self._check_both_before_after = False
         if ItalianDateTime.DefaultLanguageFallback == Constants.DEFAULT_LANGUAGE_FALLBACK_DMY:
             date_extractor_4 = ItalianDateTime.DateExtractor5
-            date_extractor_5 = ItalianDateTime.DateExtractor4
-            date_extractor_6 = ItalianDateTime.DateExtractor7
-            date_extractor_7 = ItalianDateTime.DateExtractor6
         else:
             date_extractor_4 = ItalianDateTime.DateExtractor4
-            date_extractor_5 = ItalianDateTime.DateExtractor5
-            date_extractor_6 = ItalianDateTime.DateExtractor6
-            date_extractor_7 = ItalianDateTime.DateExtractor7
 
         self._date_regex_list = [
             RegExpUtility.get_safe_reg_exp(ItalianDateTime.DateExtractor1),
             RegExpUtility.get_safe_reg_exp(ItalianDateTime.DateExtractor2),
             RegExpUtility.get_safe_reg_exp(ItalianDateTime.DateExtractor3),
             RegExpUtility.get_safe_reg_exp(date_extractor_4),
-            RegExpUtility.get_safe_reg_exp(date_extractor_5),
-            RegExpUtility.get_safe_reg_exp(date_extractor_6),
-            RegExpUtility.get_safe_reg_exp(date_extractor_7),
             RegExpUtility.get_safe_reg_exp(ItalianDateTime.DateExtractor8),
             RegExpUtility.get_safe_reg_exp(ItalianDateTime.DateExtractor9),
             RegExpUtility.get_safe_reg_exp(ItalianDateTime.DateExtractorA),

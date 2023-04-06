@@ -138,13 +138,9 @@ class GermanDateExtractorConfiguration(DateExtractorConfiguration):
         self._check_both_before_after = False
         if GermanDateTime.DefaultLanguageFallback == Constants.DEFAULT_LANGUAGE_FALLBACK_DMY:
             date_extractor_4 = GermanDateTime.DateExtractor5
-            date_extractor_5 = GermanDateTime.DateExtractor4
-            date_extractor_6 = GermanDateTime.DateExtractor7
             date_extractor_7 = GermanDateTime.DateExtractor6
         else:
             date_extractor_4 = GermanDateTime.DateExtractor4
-            date_extractor_5 = GermanDateTime.DateExtractor5
-            date_extractor_6 = GermanDateTime.DateExtractor6
             date_extractor_7 = GermanDateTime.DateExtractor7
 
         self._date_regex_list = [
@@ -152,8 +148,6 @@ class GermanDateExtractorConfiguration(DateExtractorConfiguration):
             RegExpUtility.get_safe_reg_exp(GermanDateTime.DateExtractor2),
             RegExpUtility.get_safe_reg_exp(GermanDateTime.DateExtractor3),
             RegExpUtility.get_safe_reg_exp(date_extractor_4),
-            RegExpUtility.get_safe_reg_exp(date_extractor_5),
-            RegExpUtility.get_safe_reg_exp(date_extractor_6),
             RegExpUtility.get_safe_reg_exp(date_extractor_7),
             RegExpUtility.get_safe_reg_exp(GermanDateTime.DateExtractor8),
             RegExpUtility.get_safe_reg_exp(GermanDateTime.DateExtractor9),

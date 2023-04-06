@@ -44,8 +44,14 @@ class DateTimeRecognizer(Recognizer[DateTimeOptions]):
     def initialize_configuration(self):
         self.register_model('DateTimeModel', Culture.English, lambda options: DateTimeModel(
             BaseMergedParser(EnglishMergedParserConfiguration(
-                EnglishCommonDateTimeParserConfiguration()), options),
-            BaseMergedExtractor(EnglishMergedExtractorConfiguration(), options)
+                EnglishCommonDateTimeParserConfiguration(dmyDateFormat=False)), options),
+            BaseMergedExtractor(EnglishMergedExtractorConfiguration(dmyDateFormat=False), options)
+        ))
+        
+        self.register_model('DateTimeModel', Culture.EnglishOthers, lambda options: DateTimeModel(
+            BaseMergedParser(EnglishMergedParserConfiguration(
+                EnglishCommonDateTimeParserConfiguration(dmyDateFormat=True)), options),
+            BaseMergedExtractor(EnglishMergedExtractorConfiguration(dmyDateFormat=True), options)
         ))
 
         self.register_model('DateTimeModel', Culture.Chinese, lambda options: DateTimeModel(

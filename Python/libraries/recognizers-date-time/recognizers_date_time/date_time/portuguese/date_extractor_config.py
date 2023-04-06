@@ -137,29 +137,20 @@ class PortugueseDateExtractorConfiguration(DateExtractorConfiguration):
         self._check_both_before_after = False
         if PortugueseDateTime.DefaultLanguageFallback == Constants.DEFAULT_LANGUAGE_FALLBACK_DMY:
             date_extractor_4 = PortugueseDateTime.DateExtractor5
-            date_extractor_5 = PortugueseDateTime.DateExtractor4
             date_extractor_6 = PortugueseDateTime.DateExtractor8
-            date_extractor_8 = PortugueseDateTime.DateExtractor6
             date_extractor_7 = PortugueseDateTime.DateExtractor9
-            date_extractor_9 = PortugueseDateTime.DateExtractor7
         else:
             date_extractor_4 = PortugueseDateTime.DateExtractor4
-            date_extractor_5 = PortugueseDateTime.DateExtractor5
             date_extractor_6 = PortugueseDateTime.DateExtractor6
-            date_extractor_8 = PortugueseDateTime.DateExtractor8
             date_extractor_7 = PortugueseDateTime.DateExtractor7
-            date_extractor_9 = PortugueseDateTime.DateExtractor9
 
         self._date_regex_list = [
             RegExpUtility.get_safe_reg_exp(PortugueseDateTime.DateExtractor1),
             RegExpUtility.get_safe_reg_exp(PortugueseDateTime.DateExtractor2),
             RegExpUtility.get_safe_reg_exp(PortugueseDateTime.DateExtractor3),
             RegExpUtility.get_safe_reg_exp(date_extractor_4),
-            RegExpUtility.get_safe_reg_exp(date_extractor_5),
             RegExpUtility.get_safe_reg_exp(date_extractor_6),
             RegExpUtility.get_safe_reg_exp(date_extractor_7),
-            RegExpUtility.get_safe_reg_exp(date_extractor_8),
-            RegExpUtility.get_safe_reg_exp(date_extractor_9),
             RegExpUtility.get_safe_reg_exp(PortugueseDateTime.DateExtractor10),
         ]
 

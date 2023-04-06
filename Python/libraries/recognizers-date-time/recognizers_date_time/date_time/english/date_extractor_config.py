@@ -163,19 +163,11 @@ class EnglishDateExtractorConfiguration(DateExtractorConfiguration):
             date_extractor_5 = EnglishDateTime.DateExtractor8
             date_extractor_6 = EnglishDateTime.DateExtractor9L
             date_extractor_7 = EnglishDateTime.DateExtractor9S
-            date_extractor_8 = EnglishDateTime.DateExtractor4
-            date_extractor_9 = EnglishDateTime.DateExtractor6
-            date_extractor_10 = EnglishDateTime.DateExtractor7L
-            date_extractor_11 = EnglishDateTime.DateExtractor7S
         else:
             date_extractor_4 = EnglishDateTime.DateExtractor4
             date_extractor_5 = EnglishDateTime.DateExtractor6
             date_extractor_6 = EnglishDateTime.DateExtractor7L
             date_extractor_7 = EnglishDateTime.DateExtractor7S
-            date_extractor_8 = EnglishDateTime.DateExtractor5
-            date_extractor_9 = EnglishDateTime.DateExtractor8
-            date_extractor_10 = EnglishDateTime.DateExtractor9L
-            date_extractor_11 = EnglishDateTime.DateExtractor9S
 
         self._date_regex_list = [
             RegExpUtility.get_safe_reg_exp(EnglishDateTime.DateExtractor1),
@@ -184,10 +176,6 @@ class EnglishDateExtractorConfiguration(DateExtractorConfiguration):
             RegExpUtility.get_safe_reg_exp(date_extractor_5),
             RegExpUtility.get_safe_reg_exp(date_extractor_6),
             RegExpUtility.get_safe_reg_exp(date_extractor_7),
-            RegExpUtility.get_safe_reg_exp(date_extractor_8),
-            RegExpUtility.get_safe_reg_exp(date_extractor_9),
-            RegExpUtility.get_safe_reg_exp(date_extractor_10),
-            RegExpUtility.get_safe_reg_exp(date_extractor_11),
             RegExpUtility.get_safe_reg_exp(EnglishDateTime.DateExtractorA),
         ]
         self._implicit_date_list = [
