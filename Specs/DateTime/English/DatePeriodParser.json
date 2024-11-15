@@ -5267,6 +5267,84 @@
     ]
   },
   {
+    "Input": "set OOO for 1 week, from 20th dec",
+    "Context": {
+      "ReferenceDateTime": "2018-05-29T00:00:00"
+    },
+    "NotSupported": "python, javascript, java",
+    "Results": [
+      {
+        "Text": "for 1 week, from 20th dec",
+        "Type": "daterange",
+        "Value": {
+          "Timex": "(2018-12-20,2018-12-27,P1W)",
+          "FutureResolution": {
+            "startDate": "2018-12-20",
+            "endDate": "2018-12-27"
+          },
+          "PastResolution": {
+            "startDate": "2018-12-20",
+            "endDate": "2018-12-27"
+          }
+        },
+        "Start": 8,
+        "Length": 25
+      }
+    ]
+  },
+  {
+    "Input": "set OOO for 3 days, from today",
+    "Context": {
+      "ReferenceDateTime": "2018-05-23T00:00:00"
+    },
+    "NotSupported": "python, javascript, java",
+    "Results": [
+      {
+        "Text": "for 3 days, from today",
+        "Type": "daterange",
+        "Value": {
+          "Timex": "(2018-05-23,2018-05-26,P3D)",
+          "FutureResolution": {
+            "startDate": "2018-05-23",
+            "endDate": "2018-05-26"
+          },
+          "PastResolution": {
+            "startDate": "2018-05-23",
+            "endDate": "2018-05-26"
+          }
+        },
+        "Start": 8,
+        "Length": 22
+      }
+    ]
+  },
+  {
+    "Input": "set OOO for 3 days from today",
+    "Context": {
+      "ReferenceDateTime": "2018-05-23T00:00:00"
+    },
+    "NotSupported": "python, javascript, java",
+    "Results": [
+      {
+        "Text": "for 3 days from today",
+        "Type": "daterange",
+        "Value": {
+          "Timex": "(2018-05-23,2018-05-26,P3D)",
+          "FutureResolution": {
+            "startDate": "2018-05-23",
+            "endDate": "2018-05-26"
+          },
+          "PastResolution": {
+            "startDate": "2018-05-23",
+            "endDate": "2018-05-26"
+          }
+        },
+        "Start": 8,
+        "Length": 21
+      }
+    ]
+  },
+  {
     "Input": "I have already finished all my work more than 2 weeks before today",
     "Context": {
       "ReferenceDateTime": "2018-05-29T00:00:00"
@@ -5924,6 +6002,7 @@
   },
   {
     "Input": "please schedule a meeting for the week starting february 4",
+    "Debug": true,
     "Context": {
       "ReferenceDateTime": "2019-11-07T00:00:00"
     },
@@ -5947,6 +6026,85 @@
       }
     ]
   },
+  {
+    "Input": "Schedule Out of office replies for 3 days starting from next Monday",
+    "Context": {
+      "ReferenceDateTime": "2024-11-07T00:00:00"
+    },
+    "NotSupported": "javascript, python, java",
+    "Results": [
+      {
+        "Text": "3 days starting from next monday",
+        "Type": "daterange",
+        "Value": {
+          "Timex": "(2024-11-11,2024-11-14,P3D)",
+          "FutureResolution": {
+            "startDate": "2024-11-11",
+            "endDate": "2024-11-14"
+          },
+          "PastResolution": {
+            "startDate": "2024-11-11",
+            "endDate": "2024-11-14"
+          }
+        },
+        "Start": 35,
+        "Length": 32
+      }
+    ]
+  },
+  {
+    "Input": "set ooo for a week starting tomorrow",
+    "Context": {
+      "ReferenceDateTime": "2024-11-07T00:00:00"
+    },
+    "NotSupported": "javascript, python, java",
+    "Results": [
+      {
+        "Text": "a week starting tomorrow",
+        "Type": "daterange",
+        "Value": {
+          "Timex": "(2024-11-08,2024-11-15,P1W)",
+          "FutureResolution": {
+            "startDate": "2024-11-08",
+            "endDate": "2024-11-15"
+          },
+          "PastResolution": {
+            "startDate": "2024-11-08",
+            "endDate": "2024-11-15"
+          }
+        },
+        "Start": 12,
+        "Length": 24
+      }
+    ]
+  },
+  {
+    "Input": "set ooo for 2 weeks starting May 20th",
+    "Context": {
+      "ReferenceDateTime": "2024-11-07T00:00:00"
+    },
+    "NotSupported": "javascript, python, java",
+    "Results": [
+      {
+        "Text": "2 weeks starting may 20th",
+        "Type": "daterange",
+        "Value": {
+          "Timex": "(2024-05-20,2024-06-03,P2W)",
+          "FutureResolution": {
+            "startDate": "2024-05-20",
+            "endDate": "2024-06-03"
+          },
+          "PastResolution": {
+            "startDate": "2024-05-20",
+            "endDate": "2024-06-03"
+          }
+        },
+        "Start": 12,
+        "Length": 25
+      }
+    ]
+  },
+
   {
     "Input": "please schedule a meeting for the week starting on february 4",
     "Context": {

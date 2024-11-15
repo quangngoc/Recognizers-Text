@@ -124,6 +124,9 @@ namespace Microsoft.Recognizers.Text.DateTime.English
         public static readonly Regex WithinNextPrefixRegex =
             new Regex(DateTimeDefinitions.WithinNextPrefixRegex, RegexFlags, RegexTimeOut);
 
+        public static readonly Regex ForPrefixRegex =
+            new Regex(DateTimeDefinitions.ForPrefixRegex, RegexFlags, RegexTimeOut);
+
         public static readonly Regex RestOfDateRegex =
             new Regex(DateTimeDefinitions.RestOfDateRegex, RegexFlags, RegexTimeOut);
 
@@ -171,6 +174,9 @@ namespace Microsoft.Recognizers.Text.DateTime.English
 
         public static readonly Regex OfYearRegex =
             new Regex(DateTimeDefinitions.OfYearRegex, RegexFlags, RegexTimeOut);
+
+        public static readonly Regex StartingRegex =
+            new Regex(DateTimeDefinitions.StartingRegex, RegexFlags, RegexTimeOut);
 
         private const RegexOptions RegexFlags = RegexOptions.Singleline | RegexOptions.ExplicitCapture;
 

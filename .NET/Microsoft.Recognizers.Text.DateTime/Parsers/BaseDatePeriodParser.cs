@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Microsoft.Recognizers.Text.DateTime.English;
 using Microsoft.Recognizers.Text.DateTime.Utilities;
 using Microsoft.Recognizers.Text.Utilities;
 using DateObject = System.DateTime;
@@ -415,6 +416,12 @@ namespace Microsoft.Recognizers.Text.DateTime
                 innerResult = ParseOneWordPeriod(text, referenceDate);
             }
 
+            // Cases like "x weeks/days starting (from) today/12 sep etc."
+            if (!innerResult.Success)
+            {
+                innerResult = ParseStartingWithDuration(text, referenceDate);
+            }
+
             if (!innerResult.Success)
             {
                 innerResult = MergeTwoTimePoints(text, referenceDate);
@@ -474,6 +481,12 @@ namespace Microsoft.Recognizers.Text.DateTime
             if (!innerResult.Success)
             {
                 innerResult = ParseDatePointWithAgoAndLater(text, referenceDate);
+            }
+
+            // Cases like "for x weeks/days from today/12 sep etc."
+            if (!innerResult.Success)
+            {
+                innerResult = ParseDatePointWithForPrefix(text, referenceDate);
             }
 
             // Parse duration should be at the end since it will extract "the last week" from "the last week of July"
@@ -611,6 +624,111 @@ namespace Microsoft.Recognizers.Text.DateTime
                             ret.Timex = $"{pr.TimexStr}";
                             ret.FutureValue = (DateObject)((DateTimeResolutionResult)pr.Value).FutureValue;
                             ret.PastValue = (DateObject)((DateTimeResolutionResult)pr.Value).PastValue;
+                            ret.Success = true;
+                        }
+                    }
+                }
+            }
+
+            return ret;
+        }
+
+        // Only handle cases like "for x weeks/days from today/tomorrow/some day"
+        private DateTimeResolutionResult ParseDatePointWithForPrefix(string text, DateObject referenceDate)
+        {
+            var ret = new DateTimeResolutionResult();
+            var er = this.config.DateExtractor.Extract(text, referenceDate).FirstOrDefault();
+
+            if (er != null)
+            {
+                var beforeString = text.Substring(0, (int)er.Start);
+                var isAgo = this.config.AgoRegex.Match(er.Text).Success;
+                var config = this.config as EnglishDatePeriodParserConfiguration;
+
+                if (!string.IsNullOrEmpty(beforeString) && config != null)
+                {
+                    var matchFor = config.ForPrefixRegex.Match(beforeString);
+
+                    if (matchFor.Success && matchFor.Groups[Constants.ForGroupName].Success)
+                    {
+                        var pr = this.config.DateParser.Parse(er, referenceDate);
+                        var durationExtractionResult = this.config.DurationExtractor.Extract(er.Text, referenceDate).FirstOrDefault();
+
+                        if (durationExtractionResult != null)
+                        {
+                            var duration = this.config.DurationParser.Parse(durationExtractionResult);
+                            var durationInSeconds = (double)((DateTimeResolutionResult)duration.Value).PastValue;
+
+                            DateObject startDate;
+                            DateObject endDate;
+
+                            if (isAgo)
+                            {
+                                startDate = (DateObject)((DateTimeResolutionResult)pr.Value).PastValue;
+                                endDate = startDate.AddSeconds(durationInSeconds);
+                            }
+                            else
+                            {
+                                endDate = (DateObject)((DateTimeResolutionResult)pr.Value).FutureValue;
+                                startDate = endDate.AddSeconds(-durationInSeconds);
+                            }
+
+                            if (startDate != DateObject.MinValue)
+                            {
+                                var startLuisStr = DateTimeFormatUtil.LuisDate(startDate);
+                                var endLuisStr = DateTimeFormatUtil.LuisDate(endDate);
+                                var durationTimex = ((DateTimeResolutionResult)duration.Value).Timex;
+
+                                ret.Timex = $"({startLuisStr},{endLuisStr},{durationTimex})";
+                                ret.FutureValue = new Tuple<DateObject, DateObject>(startDate, endDate);
+                                ret.PastValue = new Tuple<DateObject, DateObject>(startDate, endDate);
+                                ret.Success = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return ret;
+        }
+
+        // Only handle cases like "x weeks/days starting (from) today/tomorrow/some day"
+        private DateTimeResolutionResult ParseStartingWithDuration(string text, DateObject referenceDate)
+        {
+            var ret = new DateTimeResolutionResult();
+            var dateER = this.config.DateExtractor.Extract(text, referenceDate);
+            var enConfig = this.config as EnglishDatePeriodParserConfiguration;
+
+            if (enConfig != null && enConfig.StartingRegex.Match(text).Success && dateER.Count == 1)
+            {
+                var beforeString = text.Substring(0, (int)dateER[0].Start);
+
+                if (!string.IsNullOrEmpty(beforeString) && enConfig.StartingRegex.MatchEnd(beforeString, true).Success)
+                {
+                    var pr = this.config.DateParser.Parse(dateER[0], referenceDate);
+                    var durationER = this.config.DurationExtractor.Extract(beforeString, referenceDate);
+
+                    if (durationER.Count == 1)
+                    {
+                        var duration = this.config.DurationParser.Parse(durationER[0]);
+                        var durationInSeconds = (double)((DateTimeResolutionResult)duration.Value).PastValue;
+
+                        DateObject startDate;
+                        DateObject endDate;
+
+                        startDate = (DateObject)((DateTimeResolutionResult)pr.Value).PastValue;
+                        endDate = startDate.AddSeconds(durationInSeconds);
+
+                        if (startDate != DateObject.MinValue)
+                        {
+                            var startLuisStr = DateTimeFormatUtil.LuisDate(startDate);
+                            var endLuisStr = DateTimeFormatUtil.LuisDate(endDate);
+                            var durationTimex = ((DateTimeResolutionResult)duration.Value).Timex;
+
+                            ret.Timex = $"({startLuisStr},{endLuisStr},{durationTimex})";
+                            ret.FutureValue = new Tuple<DateObject, DateObject>(startDate, endDate);
+                            ret.PastValue = new Tuple<DateObject, DateObject>(startDate, endDate);
+                            ret.SubDateTimeEntities = new List<object> { pr, duration };
                             ret.Success = true;
                         }
                     }
