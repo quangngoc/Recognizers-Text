@@ -48,7 +48,7 @@ WrittenElevenToNineteenRegex: !simpleRegex
 WrittenTensRegex: !simpleRegex
   def: (?:quatre\Wvingt(s|\Wdix)?|soixante(\Wdix)?|dix|vingt|trente|quarante|cinquante|septante|octante|huitante|nonante)
 WrittenCenturyFullYearRegex: !nestedRegex
-  def: (?:(deux\s+)?mille((\s+{WrittenOneToNineRegex})?\s+cents?)?)
+  def: (?:(deux\s+)?(mille|mil)((\s+{WrittenOneToNineRegex})?\s+cents?)?)
   references: [ WrittenOneToNineRegex]
 WrittenCenturyOrdinalYearRegex: !nestedRegex
   def: ({WrittenOneToNineRegex}|{WrittenElevenToNineteenRegex}|dix)
@@ -400,7 +400,7 @@ MoreThanRegex: !simpleRegex
   # TODO: modify below regex according to the counterpart in English
   def: ^\b$
 DecadeRegex: !simpleRegex
-  def: (?<decade>(?:dix|vingt|trente|quarante|cinquante|soixante-dix|soixante|quatre-vingt-dix|quatre-vingts|deux\s+mille))
+  def: (?<decade>(?:dix|vingt|trente|quarante|cinquante|soixante-dix|soixante|quatre-vingt-dix|quatre-vingts|deux\s+mille|deux\s+mil))
 DecadeWithCenturyInnerRegex: !nestedRegex
   def: (((?<century>\d|1\d|2\d)?((?<decade>\d0)\b)|(?<decade>\d0)(?=s))|(({CenturyRegex}(\s+)(et\s+)?)?{DecadeRegex})|({CenturyRegex}(\s+)(et\s+)?(?<decade>dix|centaines)))
   references: [ CenturyRegex, DecadeRegex ]
@@ -1096,6 +1096,7 @@ SpecialDecadeCases: !dictionary
   types: [ string, int ]
   entries:
     'deux mille': 2000
+    'deux mil': 2000
 DefaultLanguageFallback: DMY
 DurationDateRestrictions: []
 # Cases collected from mined data
